@@ -52,7 +52,7 @@ class Product {
 		$image_id = Attachment::generate_image();
 		$product  = new WC_Product_Simple();
 		$product->set_name( $faker->productName );
-		$product->set_description( $faker->text );
+		$product->set_description( $faker->text( 1000 ) );
 		$product->set_short_description( $faker->text );
 		$product->set_regular_price( $faker->randomFloat( 2, 1, 100 ) );
 		$product->set_manage_stock( true );

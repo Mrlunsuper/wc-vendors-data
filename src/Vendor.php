@@ -71,7 +71,9 @@ class Vendor {
 	 * Generate faker data
 	 */
 	public function generate_faker_data() {
-		$faker = Factory::create();
+		$faker     = Factory::create();
+		$suffix    = get_option( 'store_suffix' );
+		$shop_name = implode( ' ', array( $faker->company(), $suffix ) );
 
 		$faker_data = array(
 			'first_name'       => $faker->firstName(),
@@ -82,9 +84,9 @@ class Vendor {
 			'city'             => $faker->city(),
 			'state'            => $faker->state(),
 			'country'          => $faker->country(),
-			'shop_name'        => $faker->company(),
+			'shop_name'        => $shop_name,
 			'shop_description' => $faker->text(),
-			'shop_slug'        => sanitize_title( $faker->company() ),
+			'shop_slug'        => sanitize_title( $shop_name ),
 		);
 
 		return $faker_data;
