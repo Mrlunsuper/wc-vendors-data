@@ -1,0 +1,14 @@
+{
+    "name": "wc-vendors/wc-vendors-data",
+    "description": "Generate demo data for WC Vendors",
+    "type": "wordpress-plugin",
+    "autoload": {
+        "psr-4": {
+            "WC_Vendors\\Demo_Data\\": "src/"
+        }
+    },
+    "require": {
+        "mbezhanov/faker-provider-collection" : "*",
+        "jdenticon/jdenticon": "^1.0"
+    }
+}
