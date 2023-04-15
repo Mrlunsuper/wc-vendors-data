@@ -62,7 +62,7 @@ class Vendor {
 			$this->data = $this->get_vendor_data();
 		} else {
 			$this->id   = 0;
-			$this->data = $this->generate_faker_data();
+			$this->data = $this->generate_faker_vendor();
 		}
 
 	}
@@ -70,7 +70,7 @@ class Vendor {
 	/**
 	 * Generate faker data
 	 */
-	public function generate_faker_data() {
+	public function generate_faker_vendor() {
 		$faker     = Factory::create();
 		$suffix    = get_option( 'store_suffix' );
 		$shop_name = implode( ' ', array( $faker->company(), $suffix ) );

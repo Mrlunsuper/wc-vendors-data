@@ -11,17 +11,26 @@ namespace WC_Vendors\Demo_Data;
 class GenerateHistories {
 
 	/**
-	 * wpdb object
+	 * WPDB object
+	 *
+	 * @var object $wpdb wpdb object.
 	 */
 	private $wpdb;
 
 	/**
-	 * constructor
+	 * Table name
+	 *
+	 * @var string $table_name  Table name.
+	 */
+	private $table_name;
+
+	/**
+	 * Constructor
 	 */
 	private function __construct() {
 		global $wpdb;
-		$this->wpdb = $wpdb;
-
+		$this->wpdb       = $wpdb;
+		$this->table_name = $wpdb->prefix . WC_VENDORS_DATA_TABLE_NAME;
 	}
 
 	/**
@@ -33,7 +42,7 @@ class GenerateHistories {
 	public static function store_object( $id, $type ) {
 		$history = new self();
 		$history->wpdb->insert(
-			$history->wpdb->prefix . WC_VENDORS_DATA_TABLE_NAME,
+			self::$table_name,
 			array(
 				'object_id'   => $id,
 				'object_type' => $type,
@@ -52,7 +61,7 @@ class GenerateHistories {
 		$row_id  = self::get_object_id( $id, $type );
 		if ( $row_id ) {
 			$history->wpdb->delete(
-				$history->wpdb->prefix . WC_VENDORS_DATA_TABLE_NAME,
+				self::$table_name,
 				array(
 					'id' => $row_id,
 				)
@@ -68,13 +77,13 @@ class GenerateHistories {
 	 */
 	public static function get_object_id( $id, $type ) {
 		$history = new self();
-		$history->wpdb->get_results(
-			$history->wpdb->prepare(
-				"SELECT id FROM {$history->wpdb->prefix}" . WC_VENDORS_DATA_TABLE_NAME . ' WHERE object_id = %d AND object_type = %s',
-				$id,
-				$type
-			)
+		$sql     = $history->wpdb->prepare(
+			'SELECT id FROM %s WHERE object_id = %d AND object_type = %s',
+			self::$table_name,
+			$id,
+			$type
 		);
+		$history->wpdb->get_results( $sql ); // WPCS: unprepared SQL ok.
 	}
 
 	/**
@@ -82,7 +91,8 @@ class GenerateHistories {
 	 */
 	public static function get_all() {
 		$history = new self();
-		$data    = $history->wpdb->get_results( "SELECT * FROM {$history->wpdb->prefix}" . WC_VENDORS_DATA_TABLE_NAME );
+		$sql     = $history->wpdb->prepare( 'SELECT * FROM %s', self::$table_name );
+		$data    = $history->wpdb->get_results( $sql ); // wpcs: unprepared SQL ok.
 		return $data;
 
 	}
@@ -92,7 +102,8 @@ class GenerateHistories {
 	 */
 	public static function clear_all() {
 		$history = new self();
-		$history->wpdb->query( "TRUNCATE TABLE {$history->wpdb->prefix}" . WC_VENDORS_DATA_TABLE_NAME );
+		$sql     = $history->wpdb->prepare( 'TRUNCATE TABLE %s', self::$table_name );
+		$history->wpdb->query( $sql ); // wpcs: unprepared SQL ok.
 	}
 
 }

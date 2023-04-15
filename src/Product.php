@@ -6,6 +6,7 @@ namespace WC_Vendors\Demo_Data;
 
 use Faker\Factory;
 use WC_Product_Simple;
+use WC_Product_Variable;
 use WC_Vendors\Demo_Data\GenerateHistories;
 /**
  * Class Product
@@ -74,7 +75,7 @@ class Product {
 		$product->set_tax_class( '' );
 		$product->set_shipping_class_id( 0 );
 		$product->set_purchase_note( '' );
-		$product->set_attributes( array() );
+		$product->set_attributes( Term::generate() );
 		$product->set_default_attributes( array() );
 		$product->set_menu_order( 0 );
 		$product->set_virtual( false );

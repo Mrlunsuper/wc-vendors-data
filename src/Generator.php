@@ -57,7 +57,7 @@ class Generator {
 		 */
 	private function generate_vendors_and_products() {
 		for ( $i = 0; $i < $this->vendors_count; $i++ ) {
-			$vendor = new Vendor();
+			$vendor    = new Vendor();
 			$vendor_id = $vendor->create_vendor();
 			if ( ! $vendor_id ) {
 				continue;
@@ -84,6 +84,12 @@ class Generator {
 					break;
 				case 'attachment':
 					wp_delete_attachment( $item->object_id );
+					break;
+				case 'pa_att':
+					wc_delete_attribute( $item->object_id );
+					break;
+				default:
+					wp_delete_term( $item->object_id, $item->object_type );
 					break;
 			}
 		}
