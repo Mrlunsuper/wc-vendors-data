@@ -163,7 +163,9 @@ class AttProvider extends Base {
 						'slug' => $this->attribute_terms[ $random_attribute ][ $term ],
 					)
 				);
-				GenerateHistories::store_object( $term_id['term_id'], $att_name );
+				if ( ! is_wp_error( $term_id ) ) {
+					GenerateHistories::store_object( $term_id['term_id'], $att_name );
+				}
 			}
 		}
 		return array(
