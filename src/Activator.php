@@ -28,7 +28,7 @@ class Activator {
 	public static function check_environment() {
 		$required_plugins  = array(
 			'woocommerce/woocommerce.php'     => 'WooCommerce',
-			'wc-vendors/class-wc-vendors.php' => 'WC Vendors Marketplace',
+			'wcvendors/class-wc-vendors.php' => 'WC Vendors Marketplace',
 		);
 		$activated_plugins = get_option( 'active_plugins' );
 

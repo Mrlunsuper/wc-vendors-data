@@ -22,7 +22,7 @@ class GenerateHistories {
 	 *
 	 * @var string $table_name  Table name.
 	 */
-	private $table_name;
+	private static $table_name;
 
 	/**
 	 * Constructor
@@ -30,7 +30,7 @@ class GenerateHistories {
 	private function __construct() {
 		global $wpdb;
 		$this->wpdb       = $wpdb;
-		$this->table_name = $wpdb->prefix . WC_VENDORS_DATA_TABLE_NAME;
+		self::$table_name = $wpdb->prefix . WC_VENDORS_DATA_TABLE_NAME;
 	}
 
 	/**
